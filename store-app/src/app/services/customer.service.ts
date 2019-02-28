@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Customer } from '../model/customer';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,20 +15,25 @@ export class CustomerService {
   }
 
   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'     
-    })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpClient: HttpClient) {   }
+
+  getCustomer(id): Observable<Customer> {
+    return this.httpClient.get<Customer>(this.EndPoint("/Cliente/"+id));
+  }
 
   getCustomerList(): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.EndPoint("/Cliente"));
+    return this.httpClient.get<Customer[]>(this.EndPoint("/Cliente"));              
   }
 
   saveCustomer(customer): Observable<Customer> {
-    return this.http.post<Customer>(this.EndPoint("/Cliente"), customer, this.httpOptions);
-  }
+    return this.httpClient.post<Customer>(this.EndPoint("/Cliente"), customer);      
+  } 
+
+
+
 
 
 }

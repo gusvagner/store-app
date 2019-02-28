@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgModule } from '@angular/core';
+import { Component, OnInit, ViewChild, NgModule,  Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Customer } from 'src/app/model/customer';
 import { CustomerService } from '../../services/customer.service';
@@ -12,52 +12,43 @@ import { ErrorMsgComponent } from '../../shared/error-msg/error-msg.component';
 })
 export class CustomerComponent implements OnInit {
 
+  customer : Customer;
   customers: Customer[];
 
-  constructor(private customerService: CustomerService) { }
+  msg : string;
+
+  constructor(private customerService: CustomerService) {
+    this.customer = new Customer();
+   }
 
   ngOnInit() {
     this.GetCustomerList();    
   }
 
+  GetCustomer(customer) {
+    this.customerService.getCustomer(customer.Id)
+      .subscribe((customerAnswer: Customer) => {
+        this.customer = customerAnswer;
+      })
+  }
+
   GetCustomerList() {
     this.customerService.getCustomerList()
-      .subscribe((customersAnswer: Customer[]) => {
-        console.log(customersAnswer);
-        //this.customers = customersAnswer;        
+      .subscribe((customersAnswer: Customer[]) => {        
+        this.customers = customersAnswer;        
       }) 
   }
 
-
-/*
-  customer : Customer;
-  customers: Customer[];
-  @ViewChild(ErrorMsgComponent) errorMsgComponent: ErrorMsgComponent;
-
-  constructor(private customerService: CustomerService) { }
-
-  ngOnInit() {
-    this.GetCustomerList();    
+  SaveCustomer() {
+    this.customerService.saveCustomer(this.customer)
+      .subscribe((customerSaved: Customer) => {
+        this.GetCustomerList();    
+        this.msg = "Costumer saved: " + customerSaved.Nome;
+      })         
   }
 
-  GetCustomerList() {
-    this.customerService.getCustomerList()
-      .subscribe((customersAnswer: Customer[]) => {
-        this.customers = customersAnswer;        
-      })  , () => { this.errorMsgComponent.setError('erro ao listar'); });
+  EditCustomer() {
+
   }
 
-  SaveCustomer(customer : Customer) {
-    console.log(customer)
-
-    this.customerService.saveCustomer(customer)    
-      .subscribe(customersAnswer => 
-        this.customers.push(customersAnswer)              
-      ) 
-  }
-
-  New() {
-    this.customer = null;    
-  } 
- */
 }

@@ -14,21 +14,20 @@
         <th scope="col">CPF</th>
       </tr>
     </thead>
-    <tbody *ngFor="let customer of customers">
+    <tbody  *ngFor="let customer of customers">
       <tr>
         <th scope="row">{{ customer.Id }}</th>
         <th scope="row">{{ customer.Nome }}</th>
         <th scope="row">{{ customer.DataNascimento }}</th>
         <th scope="row">{{ customer.Cpf }}</th>
+        <th><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#customerModal" (click)="GetCustomer(customer)">Edit</button></th>
+        <th><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#customerModal">Delete</button></th>
       </tr>
     </tbody>
-  </table>
-  <input type="text" id="nome" class="form-control" placeholder="Nome">
+  </table> 
 </div>
 <div class="container">
-  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#customerModal">
-    New
-  </button>
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#customerModal">New</button>
 </div>
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -39,29 +38,31 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        <form>
+      <div class="modal-body">        
           <div class="form-row">
             <div class="form-group col-md-4">
               <label>Nome</label>              
-              <input type="text" id="nome" class="form-control" placeholder="Nome">
+              <input type="text" [(ngModel)]="customer.Nome" name="nome" class="form-control" placeholder="Nome">
             </div>
             <div class="form-group col-md-4">
               <label>Data de nascimento</label>
-              <input type="text" placeholder="MM/DD/AAAA" class="form-control date datetimepicker" data-st-format
-                data-format="date" >
+              <input ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" class="form-control date datetimepicker"  [(ngModel)]="customer.DataNascimento"
+                data-format="date" >                
             </div>
             <div class="form-group col-md-4">
               <label>CPF</label>
-              <input type="text" class="form-control" placeholder="CPF" >
+              <input type="text" class="form-control" placeholder="CPF" [(ngModel)]="customer.Cpf" >
             </div>
-          </div>
-        </form>
+          </div>       
       </div>
       <div class="modal-footer">
+        <p>{{ msg }}</p>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="SaveCustomer()">Save</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="SaveCustomer()">Save</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
