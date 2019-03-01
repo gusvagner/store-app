@@ -1,6 +1,6 @@
 export class Customer {
     Id : number;
     Nome : string;
-    DataNascimento : Date;
+    DataNascimento : string;
     Cpf : number;
 }

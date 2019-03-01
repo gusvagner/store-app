@@ -18,7 +18,7 @@
       <tr>
         <th scope="row">{{ customer.Id }}</th>
         <th scope="row">{{ customer.Nome }}</th>
-        <th scope="row">{{ customer.DataNascimento }}</th>
+        <th scope="row">{{ customer.DataNascimento | date:'dd/MM/yyy' }}</th>
         <th scope="row">{{ customer.Cpf }}</th>
         <th><button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#customerModal" (click)="GetCustomer(customer)">Edit</button></th>
         <th><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#customerModal">Delete</button></th>
@@ -29,6 +29,7 @@
 <div class="container">
   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#customerModal">New</button>
 </div>
+
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="customerModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -46,8 +47,9 @@
             </div>
             <div class="form-group col-md-4">
               <label>Data de nascimento</label>
-              <input ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" class="form-control date datetimepicker"  [(ngModel)]="customer.DataNascimento"
-                data-format="date" >                
+              <!--<input ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" class="form-control date datetimepicker"  [(ngModel)]="customer.DataNascimento"
+                data-format="date" > -->
+                <input type="date" class="form-control" [(ngModel)]="customer.DataNascimento">
             </div>
             <div class="form-group col-md-4">
               <label>CPF</label>

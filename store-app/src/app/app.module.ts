@@ -7,7 +7,7 @@ import { CustomerComponent } from './pages/customer/customer.component';
 import { ErrorMsgComponent } from './shared/error-msg/error-msg.component';
 import { IndexComponent } from './pages/index/index.component';
 import { FormsModule } from '@angular/forms';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
