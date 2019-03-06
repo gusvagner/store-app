@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Customer } from '../model/customer';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HashLocationStrategy } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,10 @@ export class CustomerService {
   saveCustomer(customer): Observable<Customer> {
     return this.httpClient.post<Customer>(this.EndPoint("/Cliente"), customer);      
   } 
+
+  editCustomer(customer) : Observable<Customer> {
+    return this.httpClient.put<Customer>(this.EndPoint("/Cliente"), customer);
+  }
 
 
 
